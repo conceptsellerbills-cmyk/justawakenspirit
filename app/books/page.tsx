@@ -288,8 +288,8 @@ export default function BooksPage() {
         <div className="coming-soon-box">
           <h3>More books coming soon</h3>
           <p>Join the list and be the first to know when new titles arrive.</p>
-          <form className="notify-form" onSubmit={e => e.preventDefault()}>
-            <input type="email" placeholder="your@email.com" className="notify-input" />
+          <form className="notify-form" action="#" method="get">
+            <input type="email" name="email" placeholder="your@email.com" className="notify-input" />
             <button type="submit" className="notify-btn">Notify Me</button>
           </form>
         </div>
