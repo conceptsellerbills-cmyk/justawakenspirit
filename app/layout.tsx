@@ -3,8 +3,8 @@ const SITE_NAME = "JustAwakenSpirit";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: { default: SITE_NAME, template:  },
-  description: "Transformative books on anxiety, emotional freedom, overthinking, and inner wealth. Available on Amazon.",
+  title: { default: SITE_NAME, template: `%s | ${SITE_NAME}` },
+  description: "Transformative articles on spirituality, awakening, and conscious living.",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
