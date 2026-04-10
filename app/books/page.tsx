@@ -10,7 +10,8 @@ const BOOKS = [
     title: "The Invisible Anxiety: Living in Constant Alert Mode",
     author: "JustAwakenSpirit",
     cover: "https://m.media-amazon.com/images/I/71Qh2pn9fML._SY466_.jpg",
-    amazonUrl: "https://www.amazon.com/dp/B0GFXDL3D8",
+    paperbackUrl: "https://www.amazon.com/dp/B0GFXJWRNV",
+    kindleUrl: "https://www.amazon.com/dp/B0GFXDL3D8",
     tag: "Anxiety & Nervous System",
     badge: "Available Now",
     shortDesc: "Do you feel tense even when nothing is wrong? Exhausted, yet unable to truly rest? Always preparing, anticipating, and holding yourself together—without knowing why?",
@@ -33,7 +34,8 @@ const BOOKS = [
     title: "Beyond Fear: Reclaiming Your Life from the Shadows of Doubt",
     author: "JustAwakenSpirit",
     cover: "https://m.media-amazon.com/images/I/71QdQQv0UtL._SY466_.jpg",
-    amazonUrl: "https://www.amazon.com/dp/B0GDXW3HV2",
+    paperbackUrl: "https://www.amazon.com/dp/B0GG1MBFJD",
+    kindleUrl: "https://www.amazon.com/dp/B0GDXW3HV2",
     tag: "Fear & Emotional Resilience",
     badge: "Available Now",
     shortDesc: "What if fear didn't have to control your life anymore? What if you could learn to meet it with presence, compassion, and quiet inner strength?",
@@ -57,7 +59,8 @@ const BOOKS = [
     title: "You Don't Need to Be Liked: A Guide to Inner Freedom, Self-Respect, and Emotional Independence",
     author: "JustAwakenSpirit",
     cover: "https://m.media-amazon.com/images/I/61QW3NJispL._SY466_.jpg",
-    amazonUrl: "https://www.amazon.com/dp/B0GFXG1WW4",
+    paperbackUrl: "https://www.amazon.com/dp/B0GFWKTBRS",
+    kindleUrl: "https://www.amazon.com/dp/B0GFXG1WW4",
     tag: "Emotional Freedom & Self-Respect",
     badge: "Available Now",
     shortDesc: "What if the pressure to be liked is the very thing keeping you anxious, exhausted, and disconnected from yourself?",
@@ -289,6 +292,25 @@ export default function BooksPage() {
           transition: background 0.15s;
         }
         .notify-btn:hover { background: #7c3aed; }
+        .kindle-btn {
+          display: inline-flex;
+          align-items: center;
+          gap: 8px;
+          background: transparent;
+          color: #a78bfa;
+          font-weight: 700;
+          font-size: 0.9rem;
+          padding: 13px 22px;
+          border-radius: 10px;
+          text-decoration: none;
+          border: 1px solid rgba(167,139,250,0.4);
+          transition: background 0.15s, border-color 0.15s;
+        }
+        .kindle-btn:hover {
+          background: rgba(167,139,250,0.1);
+          border-color: #a78bfa;
+          color: #a78bfa;
+        }
       `}</style>
 
       <section className="books-hero">
@@ -322,13 +344,15 @@ export default function BooksPage() {
                 {book.forYouIf.map((t, j) => <li key={j}>{t}</li>)}
               </ul>
 
-              <a href={book.amazonUrl} target="_blank" rel="noopener noreferrer" className="buy-btn">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" style={{ flexShrink: 0 }}>
-                  <path d="M13.958 10.09c0 1.232.029 2.256-.591 3.351-.502.891-1.301 1.438-2.186 1.438-1.214 0-1.922-.924-1.922-2.292 0-2.692 2.415-3.182 4.699-3.182v.685zm3.186 7.705c-.209.189-.512.201-.745.074-1.047-.871-1.234-1.276-1.808-2.107-1.731 1.767-2.956 2.297-5.199 2.297-2.652 0-4.716-1.637-4.716-4.909 0-2.558 1.388-4.296 3.361-5.148 1.712-.754 4.104-.887 5.931-1.093v-.41c0-.753.06-1.64-.384-2.292-.385-.578-1.124-.817-1.774-.817-1.205 0-2.279.618-2.54 1.897-.054.285-.261.567-.549.582l-3.076-.333c-.259-.058-.548-.267-.473-.663C5.908 2.268 8.948 1.2 11.659 1.2c1.39 0 3.205.37 4.3 1.42 1.39 1.299 1.258 3.032 1.258 4.916v4.452c0 1.338.556 1.925 1.078 2.647.183.257.224.564-.01.754l-2.141 1.406z"/>
-                </svg>
-                Buy on Amazon
-              </a>
-              <p className="buy-note">Paperback &amp; Kindle available · Opens amazon.com</p>
+              <div style={{ display: "flex", gap: 12, flexWrap: "wrap", alignItems: "center" }}>
+                <a href={book.paperbackUrl} target="_blank" rel="noopener noreferrer" className="buy-btn">
+                  📦 Buy Paperback
+                </a>
+                <a href={book.kindleUrl} target="_blank" rel="noopener noreferrer" className="kindle-btn">
+                  📱 Kindle Edition
+                </a>
+              </div>
+              <p className="buy-note">Both versions available on Amazon</p>
             </div>
           </div>
         ))}
