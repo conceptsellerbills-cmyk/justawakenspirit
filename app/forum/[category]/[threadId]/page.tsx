@@ -64,7 +64,7 @@ export default async function ThreadPage({ params }: Props) {
       <nav className="breadcrumb">
         <Link href="/forum">Forum</Link>
         <span> / </span>
-        <Link href={}>{cat.name}</Link>
+        <Link href={'/forum/' + cat.slug}>{cat.name}</Link>
         <span> / </span>
         <span>{thread.title}</span>
       </nav>
