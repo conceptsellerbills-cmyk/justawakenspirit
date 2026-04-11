@@ -1,9 +1,9 @@
-import { notFound } from "next/navigation";
-import Link from "next/link";
-import { getSupabaseServerClient } from "@/lib/supabase/server";
-import { CATEGORIES } from "@/lib/supabase/categories";
-import ThreadActions from "./ThreadActions";
-import RepliesClient from "./RepliesClient";
+import { notFound } from 'next/navigation';
+import Link from 'next/link';
+import { getSupabaseServerClient } from '@/lib/supabase/server';
+import { CATEGORIES } from '@/lib/supabase/categories';
+import ThreadActions from './ThreadActions';
+import RepliesClient from './RepliesClient';
 
 export const revalidate = 0;
 
@@ -14,11 +14,11 @@ interface Props {
 function timeAgo(dateStr: string) {
   const diff = Date.now() - new Date(dateStr).getTime();
   const m = Math.floor(diff / 60000);
-  if (m < 1) return "just now";
-  if (m < 60) return m + "m ago";
+  if (m < 1) return 'just now';
+  if (m < 60) return m + 'm ago';
   const h = Math.floor(m / 60);
-  if (h < 24) return h + "h ago";
-  return Math.floor(h / 24) + "d ago";
+  if (h < 24) return h + 'h ago';
+  return Math.floor(h / 24) + 'd ago';
 }
 
 export default async function ThreadPage({ params }: Props) {
@@ -30,44 +30,41 @@ export default async function ThreadPage({ params }: Props) {
   if (!supabase) notFound();
 
   const { data: thread } = await supabase
-    .from("threads")
-    .select("*, profiles(username)")
-    .eq("id", threadId)
+    .from('threads')
+    .select('*, profiles(username)')
+    .eq('id', threadId)
     .single();
 
   if (!thread) notFound();
 
   const { data: replies } = await supabase
-    .from("replies")
-    .select("id, body, author_id, created_at, profiles(username)")
-    .eq("thread_id", threadId)
-    .order("created_at", { ascending: true });
+    .from('replies')
+    .select('id, body, author_id, created_at, profiles(username)')
+    .eq('thread_id', threadId)
+    .order('created_at', { ascending: true });
 
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-
+  const { data: { user } } = await supabase.auth.getUser();
   const currentUserId = user?.id ?? null;
 
   let isLiked = false;
   if (currentUserId) {
     const { data: likeRow } = await supabase
-      .from("likes")
-      .select("id")
-      .eq("thread_id", threadId)
-      .eq("user_id", currentUserId)
+      .from('likes')
+      .select('id')
+      .eq('thread_id', threadId)
+      .eq('user_id', currentUserId)
       .maybeSingle();
     isLiked = !!likeRow;
   }
 
-  const authorName = (thread.profiles as { username: string } | null)?.username ?? "anonymous";
+  const authorName = (thread.profiles as { username: string } | null)?.username ?? 'anonymous';
 
   return (
     <div className="thread-page">
       <nav className="breadcrumb">
         <Link href="/forum">Forum</Link>
         <span> / </span>
-        <Link href={`/forum/${cat.slug}`}>{cat.name}</Link>
+        <Link href={}>{cat.name}</Link>
         <span> / </span>
         <span>{thread.title}</span>
       </nav>
