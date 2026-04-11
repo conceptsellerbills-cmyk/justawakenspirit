@@ -4,6 +4,14 @@ import { getSupabaseServerClient } from "@/lib/supabase/server"
 
 export const revalidate = 0
 
+interface ThreadRow { title: string; category_slug: string }
+
+function getThread(raw: unknown): ThreadRow | null {
+  if (!raw) return null
+  if (Array.isArray(raw)) return raw[0] ?? null
+  return raw as ThreadRow
+}
+
 function timeAgo(dateStr: string) {
   const diff = Date.now() - new Date(dateStr).getTime()
   const m = Math.floor(diff / 60000)
@@ -62,8 +70,8 @@ export default async function ProfilePage() {
                   <div className="profile-thread-title">{t.title}</div>
                   <div className="profile-thread-meta">
                     <span>{t.category_slug}</span>
-                    <span>❤️ {t.like_count}</span>
-                    <span>💬 {t.reply_count}</span>
+                    <span>{"❤️ " + t.like_count}</span>
+                    <span>{"💬 " + t.reply_count}</span>
                     <span>{timeAgo(t.created_at)}</span>
                   </div>
                 </Link>
@@ -79,7 +87,7 @@ export default async function ProfilePage() {
           {replies && replies.length > 0 ? (
             <div className="profile-replies-list">
               {replies.map((r) => {
-                const thread = r.threads as { title: string; category_slug: string } | null
+                const thread = getThread(r.threads)
                 return (
                   <Link
                     key={r.id}
@@ -88,7 +96,7 @@ export default async function ProfilePage() {
                   >
                     <div className="profile-reply-body">{r.body.slice(0, 120)}{r.body.length > 120 ? "…" : ""}</div>
                     <div className="profile-reply-meta">
-                      <span>in {thread?.title ?? "thread"}</span>
+                      <span>{"in " + (thread?.title ?? "thread")}</span>
                       <span>{timeAgo(r.created_at)}</span>
                     </div>
                   </Link>
