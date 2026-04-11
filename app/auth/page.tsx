@@ -1,3 +1,4 @@
+import { Suspense } from 'react'
 import AuthClient from './AuthClient'
 import type { Metadata } from 'next'
 
@@ -12,7 +13,9 @@ export default function AuthPage() {
           <h1 style={{ fontSize: '1.5rem', fontWeight: 800, marginBottom: '8px' }}>Join the Community</h1>
           <p style={{ color: '#64748b', fontSize: '0.875rem' }}>Connect with awakening souls around the world</p>
         </div>
-        <AuthClient />
+        <Suspense fallback={<div style={{ color: '#64748b', textAlign: 'center' }}>Loading...</div>}>
+          <AuthClient />
+        </Suspense>
       </div>
     </div>
   )
