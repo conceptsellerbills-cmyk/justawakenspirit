@@ -1,46 +1,67 @@
-'use client'
-import { useEffect, useState } from 'react'
-import { getSupabaseBrowserClient } from '@/lib/supabase/client'
-import type { User } from '@supabase/supabase-js'
+"use client"
+import { useEffect, useState } from "react"
+import Link from "next/link"
+import { getSupabaseBrowserClient } from "@/lib/supabase/client"
 
 export default function NavbarClient() {
-  const [user, setUser] = useState<User | null>(null)
-  const [menuOpen, setMenuOpen] = useState(false)
+  const [username, setUsername] = useState<string | null>(null)
+  const [unread, setUnread] = useState(0)
+  const supabase = getSupabaseBrowserClient()
 
   useEffect(() => {
-    const supabase = getSupabaseBrowserClient()
     if (!supabase) return
-    supabase.auth.getUser().then(({ data }) => setUser(data.user))
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((_, session) => {
-      setUser(session?.user ?? null)
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      if (session?.user) {
+        const u = session.user.email?.split("@")[0] ?? "user"
+        setUsername(u)
+        fetchUnread(session.user.id)
+      }
+    })
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_e, session) => {
+      if (session?.user) {
+        const u = session.user.email?.split("@")[0] ?? "user"
+        setUsername(u)
+        fetchUnread(session.user.id)
+      } else {
+        setUsername(null)
+        setUnread(0)
+      }
     })
     return () => subscription.unsubscribe()
   }, [])
 
+  async function fetchUnread(userId: string) {
+    if (!supabase) return
+    const { count } = await supabase
+      .from("notifications")
+      .select("*", { count: "exact", head: true })
+      .eq("user_id", userId)
+      .eq("read", false)
+    setUnread(count ?? 0)
+  }
+
   async function signOut() {
-    const supabase = getSupabaseBrowserClient()
     if (!supabase) return
     await supabase.auth.signOut()
-    setUser(null)
-    window.location.href = '/'
+    window.location.href = "/"
   }
 
   return (
-    <nav style={{ borderBottom: '1px solid #2a2d3a', position: 'sticky', top: 0, zIndex: 50, background: 'rgba(15,17,23,0.95)', backdropFilter: 'blur(10px)' }}>
-      <div className="container" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: '64px' }}>
-        <a href="/" style={{ color: '#a78bfa', fontWeight: 800, fontSize: '1.1rem', textDecoration: 'none', letterSpacing: '-0.02em' }}>
-          ✨ JustAwakenSpirit
-        </a>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-          <a href="/forum" className="btn btn-outline" style={{ padding: '8px 18px', fontSize: '0.875rem' }}>🌐 Forum</a>
-          <a href="https://creativebooks.net/books" target="_blank" rel="noopener noreferrer" className="btn btn-outline" style={{ padding: '8px 18px', fontSize: '0.875rem' }}>📚 Books</a>
-          {user ? (
-            <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-              <span style={{ color: '#94a3b8', fontSize: '0.85rem' }}>{user.email?.split('@')[0]}</span>
-              <button onClick={signOut} className="btn btn-outline" style={{ padding: '8px 16px', fontSize: '0.8rem' }}>Sign out</button>
-            </div>
+    <nav className="navbar">
+      <div className="container navbar-inner">
+        <Link href="/" className="nav-brand">✨ JustAwakenSpirit</Link>
+        <div className="nav-links">
+          <Link href="/forum" className="nav-link">🌐 Forum</Link>
+          {username ? (
+            <>
+              <Link href="/notifications" className="nav-notif-btn" title="Notifications">
+                🔔{unread > 0 && <span className="notif-badge">{unread > 9 ? "9+" : unread}</span>}
+              </Link>
+              <Link href="/profile" className="nav-username">{username}</Link>
+              <button onClick={signOut} className="btn btn-outline nav-signout">Sign out</button>
+            </>
           ) : (
-            <a href="/auth" className="btn btn-primary" style={{ padding: '8px 18px', fontSize: '0.875rem' }}>Join</a>
+            <Link href="/auth" className="btn btn-primary">Join</Link>
           )}
         </div>
       </div>
