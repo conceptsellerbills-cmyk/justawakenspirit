@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import { createClient } from "@/lib/supabase/client";
+import { getSupabaseBrowserClient } from "@/lib/supabase/client";
 
 interface Props {
   threadId: string;
@@ -21,7 +21,7 @@ export default function ThreadActions({
   currentUserId,
   isLiked: initLiked,
 }: Props) {
-  const supabase = createClient();
+  const supabase = getSupabaseBrowserClient()!
   const [liked, setLiked] = useState(initLiked);
   const [likeCount, setLikeCount] = useState(initialLikeCount);
   const [editing, setEditing] = useState(false);
