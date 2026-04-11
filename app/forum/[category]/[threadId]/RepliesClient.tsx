@@ -1,6 +1,6 @@
 "use client";
 import { useState, useRef } from "react";
-import { createClient } from "@/lib/supabase/client";
+import { getSupabaseBrowserClient } from "@/lib/supabase/client";
 
 interface Reply {
   id: string;
@@ -38,7 +38,7 @@ function ReplyItem({
   onReplyTo: (username: string) => void;
   onDelete: (id: string) => void;
 }) {
-  const supabase = createClient();
+  const supabase = getSupabaseBrowserClient()!;
   const [editing, setEditing] = useState(false);
   const [editBody, setEditBody] = useState(reply.body);
   const [body, setBody] = useState(reply.body);
@@ -125,7 +125,7 @@ export default function RepliesClient({
   currentUserId,
   isLoggedIn,
 }: Props) {
-  const supabase = createClient();
+  const supabase = getSupabaseBrowserClient()!;
   const [replies, setReplies] = useState<Reply[]>(initialReplies);
   const [replyBody, setReplyBody] = useState("");
   const [submitting, setSubmitting] = useState(false);
