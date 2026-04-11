@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import { createClient } from "@/lib/supabase/server";
+import { getSupabaseServerClient } from "@/lib/supabase/server";
 import { CATEGORIES } from "@/lib/supabase/categories";
 import ThreadActions from "./ThreadActions";
 import RepliesClient from "./RepliesClient";
@@ -26,7 +26,7 @@ export default async function ThreadPage({ params }: Props) {
   const cat = CATEGORIES.find((c) => c.slug === category);
   if (!cat) notFound();
 
-  const supabase = await createClient();
+  const supabase = await getSupabaseServerClient();
   if (!supabase) notFound();
 
   const { data: thread } = await supabase
