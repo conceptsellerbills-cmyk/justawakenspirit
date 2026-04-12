@@ -1,6 +1,7 @@
 import { getSupabaseServerClient } from '@/lib/supabase/server'
 import { CATEGORIES } from '@/lib/supabase/categories'
 import type { Metadata } from 'next'
+import NewsletterForm from '../components/NewsletterForm'
 
 export const metadata: Metadata = {
   title: 'JustAwakenSpirit — Awaken Your Spirit, Discover Inner Peace',
