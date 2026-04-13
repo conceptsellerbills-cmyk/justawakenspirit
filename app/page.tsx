@@ -134,7 +134,42 @@ export default async function HomePage() {
           </div>
         </div>
 
-        {/* RECENT THREADS */}
+
+        {/* SPIRITUAL GUIDES */}
+        <div className="section" style={{ paddingTop: 0 }}>
+          <div className="section-header">
+            <div className="section-eyebrow">Deep Dives</div>
+            <h2 className="section-title">Spiritual Guides</h2>
+            <p className="section-sub">In-depth guides on the most searched spiritual topics</p>
+          </div>
+          <div className="categories-grid">
+            {[
+              { icon: '✨', name: 'Manifestation', desc: 'Law of attraction & scripting', href: '/category/manifestation' },
+              { icon: '🔢', name: 'Angel Numbers', desc: '1111, 222, 444 & their meanings', href: '/category/angel-numbers' },
+              { icon: '🃏', name: 'Tarot', desc: 'Card meanings, spreads & intuition', href: '/category/tarot' },
+              { icon: '💎', name: 'Crystal Healing', desc: 'Stones for protection, love & growth', href: '/category/crystals' },
+              { icon: '🔯', name: 'Numerology', desc: 'Life Path numbers & soul blueprint', href: '/category/numerology' },
+              { icon: '🌿', name: 'Mindfulness', desc: 'Presence, awareness & daily practice', href: '/category/mindfulness' },
+              { icon: '🌬️', name: 'Breathwork', desc: 'Pranayama, Wim Hof & healing breath', href: '/category/breathwork' },
+              { icon: '💬', name: 'Affirmations', desc: 'Reprogram limiting beliefs', href: '/category/affirmations' },
+              { icon: '🎵', name: 'Sound Healing', desc: 'Singing bowls, binaural & solfeggio', href: '/category/sound-healing' },
+              { icon: '🧒', name: 'Inner Child Healing', desc: 'Reparenting & childhood wounds', href: '/category/inner-child' },
+              { icon: '🙏', name: 'Gratitude Practice', desc: 'Journal prompts & daily rituals', href: '/category/gratitude' },
+              { icon: '🧘', name: 'Yoga & Spirituality', desc: 'Philosophy, kundalini & nidra', href: '/category/yoga' },
+              { icon: '🌟', name: 'Near-Death Experiences', desc: 'NDE stories, research & afterlife', href: '/category/nde' },
+              { icon: '♊', name: 'Astrology', desc: 'Birth charts, planets & zodiac', href: '/category/astrology' },
+              { icon: '🌱', name: 'Plant Medicine', desc: 'Ayahuasca, psilocybin & sacred plants', href: '/category/plant-medicine' },
+            ].map((g) => (
+              <a key={g.href} href={g.href} className="cat-card" style={{ '--accent-color': '#a78bfa' } as any}>
+                <div className="cat-icon">{g.icon}</div>
+                <div className="cat-name" style={{ color: '#a78bfa' }}>{g.name}</div>
+                <div className="cat-desc">{g.desc}</div>
+              </a>
+            ))}
+          </div>
+        </div>
+
+                {/* RECENT THREADS */}
         {recentThreads.length > 0 && (
           <div className="section" style={{ paddingTop: 0 }}>
             <div className="section-header">
