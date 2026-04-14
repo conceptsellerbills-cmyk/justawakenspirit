@@ -17,8 +17,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <style>{`
           .site-header{background:#0f0d1a;border-bottom:1px solid rgba(255,255,255,0.07);padding:14px 0;position:sticky;top:0;z-index:100}
           .header-inner{max-width:1200px;margin:0 auto;padding:0 24px;display:flex;align-items:center;gap:24px}
-          .site-brand{font-size:1.1rem;font-weight:800;color:#fff;text-decoration:none;white-space:nowrap}
+          .site-brand{font-size:1.1rem;font-weight:800;color:#fff;text-decoration:none;white-space:nowrap;display:flex;align-items:center;gap:9px;transition:color 0.15s}
           .site-brand:hover{color:#a78bfa}
+          .site-logo{flex-shrink:0;display:block}
           .cat-nav{position:relative}
           .cat-btn{background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);color:#e2e8f0;font-size:0.875rem;font-weight:600;padding:8px 16px;border-radius:8px;cursor:pointer;display:flex;align-items:center;gap:6px;white-space:nowrap;transition:background 0.15s,border-color 0.15s}
           .cat-btn:hover,.cat-nav:focus-within .cat-btn{background:rgba(255,255,255,0.1);border-color:#a78bfa;color:#a78bfa}
@@ -33,7 +34,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         `}</style>
         <header className="site-header">
           <div className="header-inner">
-            <a href="/" className="site-brand">{SITE_NAME}</a>
+            <a href="/" className="site-brand">
+              <svg className="site-logo" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#a78bfa" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" fill="#a78bfa22"/>
+              </svg>
+              {SITE_NAME}
+            </a>
             <nav className="cat-nav" tabIndex={0}>
               <button className="cat-btn" aria-haspopup="true">
                 Categories
