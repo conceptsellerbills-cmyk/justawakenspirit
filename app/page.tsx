@@ -6,6 +6,7 @@ import NewsletterForm from '../components/NewsletterForm'
 export const metadata: Metadata = {
   title: 'JustAwakenSpirit — Awaken Your Spirit, Discover Inner Peace',
   description: 'A spiritual community for meditation, energy healing, lucid dreaming, twin souls, and conscious living.',
+  alternates: { canonical: "https://www.justawakenspirit.com" },
 }
 
 const FEATURED_BOOKS = [
