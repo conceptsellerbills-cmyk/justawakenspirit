@@ -148,7 +148,7 @@ This is why detachment is crucial. The paradox of manifestation is that the mome
 ## Signs Your Manifestation Is Working
 
 - **Synchronicities**: Meaningful coincidences that feel like nudges from the universe
-- **Angel numbers**: Repeating number sequences (1111, 444, 222) appearing frequently
+- **[Angel numbers](/angel-numbers-complete-guide-2025)**: Repeating number sequences (1111, 444, 222) appearing frequently
 - **Inspired ideas**: Sudden clarity about action steps you hadn't considered
 - **Feeling unexplainably optimistic**: Your energy has shifted even before physical evidence
 - **People and opportunities appearing**: The right connections arriving at the right time
